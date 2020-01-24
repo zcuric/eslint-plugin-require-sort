@@ -1,13 +1,22 @@
 {
-  "name": "eslint-plugin-sort-requires",
-  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "name": "@zcuric/eslint-config-sort-requires",
+  "version": "0.0.1",
   "description": "ESlint plugin for sorting requires",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "lint": "eslint .",
-    "build": "rimraf dist && babel index.js -d dist"
+    "prebuild": "rimraf dist",
+    "prepare": "npm run build",
+    "build": "babel index.js -d dist",
+    "release": "npx np"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/zcuric/eslint-plugin-sort-requires"
