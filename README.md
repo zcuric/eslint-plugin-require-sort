@@ -41,7 +41,7 @@ $ npm install eslint --save-dev
 Install `eslint-plugin-sort-requires`:
 
 ```
-$ npm install eslint-plugin-sort-requires --save-dev
+$ npm install @zcuric/eslint-plugin-sort-requires --save-dev
 ```
 
 **Note:** If you installed ESLint globally (using the `-g` flag) then you must
