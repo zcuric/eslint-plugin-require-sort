@@ -2,8 +2,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "name": "@zcuric/eslint-config-sort-requires",
-  "version": "1.0.1",
+  "name": "@zcuric/eslint-plugin-sort-requires",
+  "version": "0.0.1",
   "description": "ESlint plugin for sorting requires",
   "main": "dist/index.js",
   "scripts": {
