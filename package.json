@@ -2,14 +2,31 @@
   "name": "eslint-plugin-sort-requires",
   "version": "1.0.0",
   "description": "ESlint plugin for sorting requires",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "rimraf dist && babel index.js -d dist"
   },
-  "keywords": [],
-  "author": "Zdravko Ćurić",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zcuric/eslint-plugin-sort-requires"
+  },
+  "author": "Zdravko Ćurić <zcuric@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zcuric/eslint-plugin-sort-requires/issues"
+  },
+  "homepage": "https://github.com/zcuric/eslint-plugin-sort-requires",
+  "keywords": [
+    "commonjs",
+    "eslint",
+    "eslint-plugin",
+    "eslint-plugin-sort-imports",
+    "eslint-plugin-sort-requires",
+    "node",
+    "require"
+  ],
   "devDependencies": {
     "@babel/cli": "^7.8.3",
     "@babel/core": "^7.8.3",
@@ -26,7 +43,8 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^6.1.2",
-    "jest": "^25.1.0"
+    "jest": "^25.1.0",
+    "rimraf": "^3.0.0"
   },
   "jest": {
     "testPathIgnorePatterns": [
