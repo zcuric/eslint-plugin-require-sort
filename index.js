@@ -56,6 +56,7 @@ module.exports = {
         let previousDeclaration = null;
 
         const isRequire = node => node.declarations[0]?.init?.callee?.name === 'require';
+        const hasProperParent = node => node.parent.type === 'Program';
         const hasObjectPattern = node => node.declarations[0]?.id?.type === 'ObjectPattern';
         const hasMultipleProperties = node => node.declarations[0]?.id?.properties?.length > 1;
         const usedPropertySyntax = node => {
@@ -165,7 +166,7 @@ module.exports = {
 
         return {
           VariableDeclaration(node) {
-            if (!isRequire(node)) return;
+            if (!isRequire(node) || !hasProperParent(node)) return;
             if (!ignoreDeclarationSort) handleDeclarationSort(node);
             if (!ignorePropertySort) handlePropertySort(node);
           }

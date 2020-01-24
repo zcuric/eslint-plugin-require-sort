@@ -166,6 +166,28 @@ ruleTester.run('sort-requires', rule, {
     },
     {
       code: `
+      const bar = require('bar');
+      const foo = require('foo');
+      function fn() { let baz = require('baz'); }`,
+      output: `
+      const bar = require('bar');
+      const foo = require('foo');
+      function fn() { let baz = require('baz'); }`,
+      errors: []
+    },
+    {
+      code: `
+        const bar = require('bar');
+        const foo = require('foo');
+        if (foo) { let baz = require('baz'); }`,
+      output: `
+        const bar = require('bar');
+        const foo = require('foo');
+        if (foo) { let baz = require('baz'); }`,
+      errors: []
+    },
+    {
+      code: `
           const {
             boop,
             foo,
