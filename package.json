@@ -3,7 +3,7 @@
     "access": "public"
   },
   "name": "@zcuric/eslint-config-sort-requires",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ESlint plugin for sorting requires",
   "main": "dist/index.js",
   "scripts": {
