@@ -54,7 +54,7 @@ file:
 
 ```json
 {
-  "plugins": ["sort-requires"]
+  "plugins": ["@zcuric/sort-requires"]
 }
 ```
 
@@ -85,7 +85,7 @@ Default option settings are:
 
 ```json
 {
-    "sort-requires/sort-requires": ["error", {
+    "@zcuric/sort-requires/sort-requires": ["error", {
         "ignoreCase": false,
         "ignoreDeclarationSort": false,
         "ignorePropertySort": false,
