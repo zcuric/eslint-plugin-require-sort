@@ -1,6 +1,6 @@
 'use strict';
 
-const rule = require('../').rules['sort-requires'];
+const rule = require('../index.js').rules['require-sort'];
 const { RuleTester } = require('eslint');
 
 const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 2020, sourceType: 'script' } });
@@ -11,7 +11,7 @@ const expectedError = {
 };
 const ignoreCaseArgs = [{ ignoreCase: true }];
 
-ruleTester.run('sort-requires', rule, {
+ruleTester.run('require-sort', rule, {
   valid: [
     "const a = require('foo.js');\n" +
     "const b = require('bar.js');\n" +

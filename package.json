@@ -2,9 +2,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "name": "@zcuric/eslint-plugin-sort-requires",
-  "version": "1.0.1",
-  "description": "ESlint plugin for sorting requires",
+  "name": "eslint-plugin-require-sort",
+  "version": "1.0.0",
+  "description": "ESlint plugin for sorting requires (CommonJS modules) alphabetically",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
@@ -19,20 +19,20 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/zcuric/eslint-plugin-sort-requires"
+    "url": "https://github.com/zcuric/eslint-plugin-require-sort"
   },
   "author": "Zdravko Ćurić <zcuric@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zcuric/eslint-plugin-sort-requires/issues"
+    "url": "https://github.com/zcuric/eslint-plugin-require-sort/issues"
   },
-  "homepage": "https://github.com/zcuric/eslint-plugin-sort-requires",
+  "homepage": "https://github.com/zcuric/eslint-plugin-require-sort",
   "keywords": [
     "commonjs",
     "eslint",
     "eslint-plugin",
     "eslint-plugin-sort-imports",
-    "eslint-plugin-sort-requires",
+    "eslint-plugin-require-sort",
     "node",
     "require"
   ],

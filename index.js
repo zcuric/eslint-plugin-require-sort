@@ -2,7 +2,7 @@
 
 module.exports = {
   rules: {
-    'sort-requires': {
+    'require-sort': {
       meta: {
         type: 'suggestion',
 
@@ -10,7 +10,7 @@ module.exports = {
           description: 'enforce sorted require declarations within modules',
           category: 'ECMAScript 6',
           recommended: false,
-          url: 'https://github.com/zcuric/eslint-plugin-sort-requires'
+          url: 'https://github.com/zcuric/eslint-plugin-require-sort'
         },
         schema: [
           {

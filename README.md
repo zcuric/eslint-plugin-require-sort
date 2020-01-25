@@ -1,4 +1,4 @@
-# eslint-plugin-sort-requires
+# eslint-plugin-require-sort
 
   - [Introduction](#introduction)
   - [Installation](#installation)
@@ -38,23 +38,23 @@ Install [ESLint](http://eslint.org):
 $ npm install eslint --save-dev
 ```
 
-Install `eslint-plugin-sort-requires`:
+Install `eslint-plugin-require-sort`:
 
 ```
-$ npm install @zcuric/eslint-plugin-sort-requires --save-dev
+$ npm install eslint-plugin-require-sort --save-dev
 ```
 
 **Note:** If you installed ESLint globally (using the `-g` flag) then you must
-also install `eslint-plugin-sort-requires` globally.
+also install `eslint-plugin-require-sort` globally.
 
 ## Usage
 
-Add `sort-requires` to the plugins section of your `.eslintrc(.js|json)` configuration
+Add -require-sort` to the plugins section of your `.eslintrc(.js|json)` configuration
 file:
 
 ```json
 {
-  "plugins": ["@zcuric/sort-requires"]
+  "plugins": ["require-sort"]
 }
 ```
 
@@ -77,7 +77,7 @@ will be ignored. Only top level variable declarations with `require` are conside
 This rule accepts an object with its properties as
 
 * `ignoreCase` (default: `false`)
-* `ignoreDeclarationSort` (default: `false`)
+* `ignoreDeclarationOrder` (default: `false`)
 * `ignorePropertySort` (default: `false`)
 * `propertySyntaxSortOrder` (default: `["multiple", "single"]`); both items must be present in the array, but you can change the order.
 
@@ -85,7 +85,7 @@ Default option settings are:
 
 ```json
 {
-    "@zcuric/sort-requires/sort-requires": ["error", {
+    "require-sort/require-sort": ["error", {
         "ignoreCase": false,
         "ignoreDeclarationSort": false,
         "ignorePropertySort": false,
@@ -101,48 +101,48 @@ Default option settings are:
 Examples of **correct** code for this rule when using default options:
 
 ```js
-/*eslint sort-requires: "error"*/
+/*eslint require-sort: "error"*/
 const { alpha, beta } = require('alpha.js');
 const { delta, gamma } = require('delta.js');
 const a = require('baz.js');
 const b = require('qux.js');
 
-/*eslint sort-requires: "error"*/
+/*eslint require-sort: "error"*/
 const a = require('foo.js');
 const b = require('bar.js');
 const c = require('baz.js');
 
-/*eslint sort-requires: "error"*/
+/*eslint require-sort: "error"*/
 const { a, b } = require('baz.js');
 const c = require('qux.js');
 
-/*eslint sort-requires: "error"*/
+/*eslint require-sort: "error"*/
 const { a, b, c } = require('foo.js)'
 ```
 
 Examples of **incorrect** code for this rule when using default options:
 
 ```js
-/*eslint sort-requires: "error"*/
+/*eslint require-sort: "error"*/
 const b = require('foo.js');
 const a = require('bar.js');
 
-/*eslint sort-requires: "error"*/
+/*eslint require-sort: "error"*/
 const a = require('foo.js');
 const A = require('bar.js');
 
-/*eslint sort-requires: "error"*/
+/*eslint require-sort: "error"*/
 const { b, c } = require('foo.js');
 const { a, b } = require('bar.js');
 
-/*eslint sort-requires: "error"*/
+/*eslint require-sort: "error"*/
 const a = require('foo.js');
 const { b, c } = require('bar.js');
 
-/*eslint sort-requires: "error"*/
+/*eslint require-sort: "error"*/
 const a = require('foo.js');
 
-/*eslint sort-requires: "error"*/
+/*eslint require-sort: "error"*/
 const { b, a, c } = require('foo.js)'
 ```
 
@@ -153,7 +153,7 @@ When `true` the rule ignores the case-sensitivity of the declaration
 Examples of **incorrect** code for this rule with the `{ "ignoreCase": true }` option:
 
 ```js
-/*eslint sort-requires: ["error", { "ignoreCase": true }]*/
+/*eslint require-sort: ["error", { "ignoreCase": true }]*/
 
 const b = require('foo.js');
 const a = require('bar.js');
@@ -162,7 +162,7 @@ const a = require('bar.js');
 Examples of **correct** code for this rule with the `{ "ignoreCase": true }` option:
 
 ```js
-/*eslint sort-requires: ["error", { "ignoreCase": true }]*/
+/*eslint require-sort: ["error", { "ignoreCase": true }]*/
 
 const a = require('foo.js');
 const B = require('bar.js');
@@ -178,7 +178,7 @@ Ignores the sorting of variable declarations with `require`.
 Examples of **incorrect** code for this rule with the default `{ "ignoreDeclarationSort": false }` option:
 
 ```js
-/*eslint sort-requires: ["error", { "ignoreDeclarationSort": false }]*/
+/*eslint require-sort: ["error", { "ignoreDeclarationSort": false }]*/
 const b = require('foo.js')
 const a = require('bar.js')
 ```
@@ -186,13 +186,13 @@ const a = require('bar.js')
 Examples of **correct** code for this rule with the `{ "ignoreDeclarationSort": true }` option:
 
 ```js
-/*eslint sort-requires: ["error", { "ignoreDeclarationSort": true }]*/
+/*eslint require-sort: ["error", { "ignoreDeclarationSort": true }]*/
 const a = require('foo.js')
 const b = require('bar.js')
 ```
 
 ```js
-/*eslint sort-requires: ["error", { "ignoreDeclarationSort": true }]*/
+/*eslint require-sort: ["error", { "ignoreDeclarationSort": true }]*/
 const b = require('foo.js')
 const a = require('bar.js')
 ```
@@ -206,14 +206,14 @@ Ignores the property sorting within a `multiple` property in declaration.
 Examples of **incorrect** code for this rule with the default `{ "ignorePropertySort": false }` option:
 
 ```js
-/*eslint sort-requires: ["error", { "ignorePropertySort": false }]*/
+/*eslint require-sort: ["error", { "ignorePropertySort": false }]*/
 const { b, a, c } = require('foo.js)'
 ```
 
 Examples of **correct** code for this rule with the `{ "ignorePropertySort": true }` option:
 
 ```js
-/*eslint sort-requires: ["error", { "ignorePropertySort": true }]*/
+/*eslint require-sort: ["error", { "ignorePropertySort": true }]*/
 const { b, a, c } = require('foo.js)'
 ```
 
@@ -231,7 +231,7 @@ Both options must be specified in the array, but you can customize their order.
 Examples of **correct** code for this rule with the `{ "propertySyntaxSortOrder": ['single', 'multiple'] }` option:
 
 ```js
-/*eslint sort-requires: ["error", { "propertySyntaxSortOrder": ['single', 'multiple'] }]*/
+/*eslint require-sort: ["error", { "propertySyntaxSortOrder": ['single', 'multiple'] }]*/
 
 const z = require('zoo.js');
 const { a, b } = require('foo.js');
