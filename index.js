@@ -64,9 +64,9 @@ module.exports = {
             node.callee.name === 'require' &&
             node.arguments.length === 1;
         };
-        const isRequire = node => node.declarations[0].init.callee.name === 'require';
-        const hasObjectPattern = node => node.declarations[0].id.type === 'ObjectPattern';
-        const hasMultipleProperties = node => node.declarations[0].id.properties.length > 1;
+        const isRequire = node => node.declarations[0]?.init?.callee?.name === 'require';
+        const hasObjectPattern = node => node.declarations[0]?.id?.type === 'ObjectPattern';
+        const hasMultipleProperties = node => node.declarations[0]?.id?.properties.length > 1;
         const usedPropertySyntax = node => {
           if (isStaticRequire(node)) return 'none';
           if (!hasObjectPattern(node) || !hasMultipleProperties(node)) return 'single';
