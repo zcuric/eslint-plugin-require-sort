@@ -221,7 +221,7 @@ Default is `false`.
 
 ### `propertySyntaxSortOrder`
 
-There are two different styles and the default property syntax sort order is:
+There are three different styles and the default property syntax sort order is:
 s.
 * `none` - just a require expression
 * `multiple` - require multiple properties.
