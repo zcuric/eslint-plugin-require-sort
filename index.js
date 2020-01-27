@@ -23,11 +23,11 @@ module.exports = {
               propertySyntaxSortOrder: {
                 type: 'array',
                 items: {
-                  enum: ['multiple', 'single']
+                  enum: ['none', 'multiple', 'single']
                 },
                 uniqueItems: true,
-                minItems: 2,
-                maxItems: 2
+                minItems: 3,
+                maxItems: 3
               },
               ignoreDeclarationSort: {
                 type: 'boolean',
@@ -50,16 +50,25 @@ module.exports = {
           ignoreCase = false,
           ignoreDeclarationSort = false,
           ignorePropertySort = false,
-          propertySyntaxSortOrder = ['multiple', 'single']
+          propertySyntaxSortOrder = ['none', 'multiple', 'single']
         } = configuration;
         const sourceCode = context.getSourceCode();
+        const nodes = [];
         let previousDeclaration = null;
 
-        const isRequire = node => node.declarations[0]?.init?.callee?.name === 'require';
-        const hasProperParent = node => node.parent.type === 'Program';
-        const hasObjectPattern = node => node.declarations[0]?.id?.type === 'ObjectPattern';
-        const hasMultipleProperties = node => node.declarations[0]?.id?.properties?.length > 1;
+        const isTopLevel = ({ parent }) => parent.type === 'Program';
+        const isStaticRequire = node => {
+          if (node.type !== 'CallExpression') return false;
+          return node.callee &&
+            node.callee.type === 'Identifier' &&
+            node.callee.name === 'require' &&
+            node.arguments.length === 1;
+        };
+        const isRequire = node => node.declarations[0].init.callee.name === 'require';
+        const hasObjectPattern = node => node.declarations[0].id.type === 'ObjectPattern';
+        const hasMultipleProperties = node => node.declarations[0].id.properties.length > 1;
         const usedPropertySyntax = node => {
+          if (isStaticRequire(node)) return 'none';
           if (!hasObjectPattern(node) || !hasMultipleProperties(node)) return 'single';
           return 'multiple';
         };
@@ -68,11 +77,10 @@ module.exports = {
           const commentsAfter = sourceCode.getCommentsAfter(property);
           return commentsBefore.length || commentsAfter.length;
         });
-
         const getPropertyParameterGroupIndex = node =>
           propertySyntaxSortOrder.indexOf(usedPropertySyntax(node));
-
         const getFirstDeclarationName = node => {
+          if (isStaticRequire(node)) return null;
           if (!hasObjectPattern(node)) return node.declarations[0].id.name;
           if (hasObjectPattern(node)) return node.declarations[0].id.properties[0].key.name;
           return null;
@@ -82,19 +90,12 @@ module.exports = {
           if (previousDeclaration) {
             const currentPropertySyntaxGroupIndex = getPropertyParameterGroupIndex(node);
             const previousPropertySyntaxGroupIndex = getPropertyParameterGroupIndex(previousDeclaration);
-            let currentDeclarationName = getFirstDeclarationName(node);
-            let previousDeclarationName = getFirstDeclarationName(previousDeclaration);
-
-            if (ignoreCase) {
-              previousDeclarationName = previousDeclarationName && previousDeclarationName.toLowerCase();
-              currentDeclarationName = currentDeclarationName && currentDeclarationName.toLowerCase();
-            }
 
             /*
-             * When the current declaration uses a different property syntax,
-             * then check if the ordering is correct.
-             * Otherwise, make a default string compare (like rule sort-vars to be consistent) of the first used property name.
-             */
+           * When the current declaration uses a different property syntax,
+           * then check if the ordering is correct.
+           * Otherwise, make a default string compare (like rule sort-vars to be consistent) of the first used property name.
+           */
             if (currentPropertySyntaxGroupIndex !== previousPropertySyntaxGroupIndex) {
               if (currentPropertySyntaxGroupIndex < previousPropertySyntaxGroupIndex) {
                 context.report({
@@ -107,6 +108,13 @@ module.exports = {
                 });
               }
             } else {
+              let currentDeclarationName = getFirstDeclarationName(node);
+              let previousDeclarationName = getFirstDeclarationName(previousDeclaration);
+
+              if (ignoreCase) {
+                previousDeclarationName = previousDeclarationName && previousDeclarationName.toLowerCase();
+                currentDeclarationName = currentDeclarationName && currentDeclarationName.toLowerCase();
+              }
               if (previousDeclarationName && currentDeclarationName &&
                 currentDeclarationName < previousDeclarationName
               ) {
@@ -122,6 +130,7 @@ module.exports = {
         };
 
         const handlePropertySort = node => {
+          if (isStaticRequire(node)) return;
           if (!node.declarations[0].id.properties) return;
           const properties = node.declarations[0].id.properties;
           const getSortableName = ignoreCase
@@ -165,10 +174,19 @@ module.exports = {
         };
 
         return {
+          ExpressionStatement(node) {
+            if (!isTopLevel(node)) return;
+            if (!isStaticRequire(node.expression)) return;
+            nodes.push(node.expression);
+          },
           VariableDeclaration(node) {
-            if (!isRequire(node) || !hasProperParent(node)) return;
-            if (!ignoreDeclarationSort) handleDeclarationSort(node);
-            if (!ignorePropertySort) handlePropertySort(node);
+            if (!isTopLevel(node)) return;
+            if (!isRequire(node)) return;
+            nodes.push(node);
+          },
+          'Program:exit'() {
+            if (!ignoreDeclarationSort) nodes.forEach(handleDeclarationSort);
+            if (!ignorePropertySort) nodes.forEach(handlePropertySort);
           }
         };
       }

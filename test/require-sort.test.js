@@ -25,7 +25,7 @@ ruleTester.run('require-sort', rule, {
         "const A = require('bar.js');\n" +
         "const {b, c} = require('foo.js');",
       options: [{
-        propertySyntaxSortOrder: ['single', 'multiple']
+        propertySyntaxSortOrder: ['none', 'single', 'multiple']
       }]
     },
     "const {a, b} = require('bar.js');\n" +
@@ -69,7 +69,15 @@ ruleTester.run('require-sort', rule, {
       code: "const {a, B, c, D} = require('foo.js');",
       options: ignoreCaseArgs
     },
-    "const b = require('bar.js');"
+    "const b = require('bar.js');",
+    {
+      code:
+        "require('bar.js');\n" +
+        "const {b, c} = require('foo.js');",
+      options: [{
+        propertySyntaxSortOrder: ['none', 'multiple', 'single']
+      }]
+    }
   ],
   invalid: [
     {
@@ -78,6 +86,16 @@ ruleTester.run('require-sort', rule, {
         "const A = require('bar.js');",
       output: null,
       errors: [expectedError]
+    },
+    {
+      code:
+        "const a = require('foo');\n" +
+        "require('muu');",
+      output: null,
+      errors: [{
+        message: "Expected 'none' syntax before 'single' syntax.",
+        type: 'CallExpression'
+      }]
     },
     {
       code:

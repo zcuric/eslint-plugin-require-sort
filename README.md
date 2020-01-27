@@ -79,7 +79,7 @@ This rule accepts an object with its properties as
 * `ignoreCase` (default: `false`)
 * `ignoreDeclarationOrder` (default: `false`)
 * `ignorePropertySort` (default: `false`)
-* `propertySyntaxSortOrder` (default: `["multiple", "single"]`); both items must be present in the array, but you can change the order.
+* `propertySyntaxSortOrder` (default: `["note", "multiple", "single"]`); all items must be present in the array, but you can change the order.
 
 Default option settings are:
 
@@ -89,7 +89,7 @@ Default option settings are:
         "ignoreCase": false,
         "ignoreDeclarationSort": false,
         "ignorePropertySort": false,
-        "propertySyntaxSortOrder": ["multiple", "single"]
+        "propertySyntaxSortOrder": ["none", "multiple", "single"]
     }]
 }
 ```
@@ -221,23 +221,24 @@ Default is `false`.
 
 ### `propertySyntaxSortOrder`
 
-There are four different styles and the default property syntax sort order is:
+There are two different styles and the default property syntax sort order is:
 s.
+* `none` - just a require expression
 * `multiple` - require multiple properties.
 * `single` - require single property.
 
 Both options must be specified in the array, but you can customize their order.
 
-Examples of **correct** code for this rule with the `{ "propertySyntaxSortOrder": ['single', 'multiple'] }` option:
+Examples of **correct** code for this rule with the `{ "propertySyntaxSortOrder": ["none", "single", "multiple"] }` option:
 
 ```js
-/*eslint require-sort: ["error", { "propertySyntaxSortOrder": ['single', 'multiple'] }]*/
-
+/*eslint require-sort: ["error", { "propertySyntaxSortOrder":  ["none", "single", "multiple"]  }]*/
+require('bar');
 const z = require('zoo.js');
 const { a, b } = require('foo.js');
 ```
 
-Default is `["multiple", "single"]`.
+Default is `["none", "multiple", "single"]`.
 
 ## Credits
 - This plugin is [heavily inspired by `sort-imports` rule](https://github.com/eslint/eslint/blob/master/lib/rules/sort-imports.js) and borrows much of the code from it. Credits to authors an maintainers of that rule. 
