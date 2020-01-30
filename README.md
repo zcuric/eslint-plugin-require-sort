@@ -49,7 +49,7 @@ also install `eslint-plugin-require-sort` globally.
 
 ## Usage
 
-Add -require-sort` to the plugins section of your `.eslintrc(.js|json)` configuration
+Add `require-sort` to the plugins section of your `.eslintrc(.js|.json|.yaml)` configuration
 file:
 
 ```json
@@ -62,7 +62,7 @@ file:
 
 This rule checks all  declarations and verifies that all are first sorted by the used property syntax and then alphabetically by the first property or alias name.
 
-The `--fix` option on the command line automatically fixes some problems reported by this rule: multiple properties on a single line are automatically sorted (e.g. `const { b, a } =  require('foo.js')` is corrected to `const { a, b } =  require('foo.js')`), but multiple lines are not reordered.
+The `--fix` option on the command line automatically fixes some problems reported by this rule: multiple properties on a single line are automatically sorted (e.g. `const { b, a } =  require('foo')` is corrected to `const { a, b } =  require('foo')`), but multiple lines are not reordered.
 
 Rule ignores `require` functions inside functions, `if` statements, etc. For example, 
 ```js
@@ -102,48 +102,48 @@ Examples of **correct** code for this rule when using default options:
 
 ```js
 /*eslint require-sort: "error"*/
-const { alpha, beta } = require('alpha.js');
-const { delta, gamma } = require('delta.js');
-const a = require('baz.js');
-const b = require('qux.js');
+const { alpha, beta } = require('alpha');
+const { delta, gamma } = require('delta');
+const a = require('baz');
+const b = require('qux');
 
 /*eslint require-sort: "error"*/
-const a = require('foo.js');
-const b = require('bar.js');
-const c = require('baz.js');
+const a = require('foo');
+const b = require('bar');
+const c = require('baz');
 
 /*eslint require-sort: "error"*/
-const { a, b } = require('baz.js');
-const c = require('qux.js');
+const { a, b } = require('baz');
+const c = require('qux');
 
 /*eslint require-sort: "error"*/
-const { a, b, c } = require('foo.js)'
+const { a, b, c } = require('foo)'
 ```
 
 Examples of **incorrect** code for this rule when using default options:
 
 ```js
 /*eslint require-sort: "error"*/
-const b = require('foo.js');
-const a = require('bar.js');
+const b = require('foo');
+const a = require('bar');
 
 /*eslint require-sort: "error"*/
-const a = require('foo.js');
-const A = require('bar.js');
+const a = require('foo');
+const A = require('bar');
 
 /*eslint require-sort: "error"*/
-const { b, c } = require('foo.js');
-const { a, b } = require('bar.js');
+const { b, c } = require('foo');
+const { a, b } = require('bar');
 
 /*eslint require-sort: "error"*/
-const a = require('foo.js');
-const { b, c } = require('bar.js');
+const a = require('foo');
+const { b, c } = require('bar');
 
 /*eslint require-sort: "error"*/
-const a = require('foo.js');
+const a = require('foo');
 
 /*eslint require-sort: "error"*/
-const { b, a, c } = require('foo.js)'
+const { b, a, c } = require('foo');
 ```
 
 ### `ignoreCase`
@@ -155,8 +155,8 @@ Examples of **incorrect** code for this rule with the `{ "ignoreCase": true }` o
 ```js
 /*eslint require-sort: ["error", { "ignoreCase": true }]*/
 
-const b = require('foo.js');
-const a = require('bar.js');
+const b = require('foo');
+const a = require('bar');
 ```
 
 Examples of **correct** code for this rule with the `{ "ignoreCase": true }` option:
@@ -164,9 +164,9 @@ Examples of **correct** code for this rule with the `{ "ignoreCase": true }` opt
 ```js
 /*eslint require-sort: ["error", { "ignoreCase": true }]*/
 
-const a = require('foo.js');
-const B = require('bar.js');
-const c = require('baz.js');
+const a = require('foo');
+const B = require('bar');
+const c = require('baz');
 ```
 
 Default is `false`.
@@ -179,22 +179,22 @@ Examples of **incorrect** code for this rule with the default `{ "ignoreDeclarat
 
 ```js
 /*eslint require-sort: ["error", { "ignoreDeclarationSort": false }]*/
-const b = require('foo.js')
-const a = require('bar.js')
+const b = require('foo');
+const a = require('bar');
 ```
 
 Examples of **correct** code for this rule with the `{ "ignoreDeclarationSort": true }` option:
 
 ```js
 /*eslint require-sort: ["error", { "ignoreDeclarationSort": true }]*/
-const a = require('foo.js')
-const b = require('bar.js')
+const a = require('foo');
+const b = require('bar');
 ```
 
 ```js
 /*eslint require-sort: ["error", { "ignoreDeclarationSort": true }]*/
-const b = require('foo.js')
-const a = require('bar.js')
+const b = require('foo');
+const a = require('bar');
 ```
 
 Default is `false`.
@@ -207,14 +207,14 @@ Examples of **incorrect** code for this rule with the default `{ "ignoreProperty
 
 ```js
 /*eslint require-sort: ["error", { "ignorePropertySort": false }]*/
-const { b, a, c } = require('foo.js)'
+const { b, a, c } = require('foo');
 ```
 
 Examples of **correct** code for this rule with the `{ "ignorePropertySort": true }` option:
 
 ```js
 /*eslint require-sort: ["error", { "ignorePropertySort": true }]*/
-const { b, a, c } = require('foo.js)'
+const { b, a, c } = require('foo');
 ```
 
 Default is `false`.
@@ -234,14 +234,14 @@ Examples of **correct** code for this rule with the `{ "propertySyntaxSortOrder"
 ```js
 /*eslint require-sort: ["error", { "propertySyntaxSortOrder":  ["none", "single", "multiple"]  }]*/
 require('bar');
-const z = require('zoo.js');
-const { a, b } = require('foo.js');
+const z = require('zoo');
+const { a, b } = require('foo');
 ```
 
 Default is `["none", "multiple", "single"]`.
 
 ## Credits
-- This plugin is [heavily inspired by `sort-imports` rule](https://github.com/eslint/eslint/blob/master/lib/rules/sort-imports.js) and borrows much of the code from it. Credits to authors an maintainers of that rule. 
+- This plugin is [heavily inspired by `sort-imports` rule](https://github.com/eslint/eslint/blob/master/lib/rules/sort-imports) and borrows much of the code from it. Credits to authors an maintainers of that rule. 
 - [@vladimyr](https://github.com/vladimyr) who pointed me to AST explorer.
 - [@kronicker](https://github.com/kronicker) who said it that this won't work in some cases :stuck_out_tongue_winking_eye:
 
