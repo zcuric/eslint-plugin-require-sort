@@ -114,6 +114,7 @@ module.exports = {
         };
         const isRequire = node =>
           node.declarations[0]?.init?.callee?.name === 'require';
+        const isAssignmentPattern = node => node?.type === 'AssignmentPattern';
         const hasObjectPattern = node =>
           node.declarations[0]?.id?.type === 'ObjectPattern';
         const hasMultipleProperties =
@@ -125,9 +126,10 @@ module.exports = {
           return commentsBefore.length || commentsAfter.length;
         });
 
-        const getSortableName = ignoreCase
-          ? property => property.value.name.toLowerCase()
-          : property => property.value.name;
+        const getSortableName = ({ value }) => {
+          const name = isAssignmentPattern(value) ? value.left.name : value.name;
+          return ignoreCase ? name.toLowerCase() : name;
+        };
 
         const sortByName = (propertyA, propertyB) => {
           const aName = getSortableName(propertyA);
@@ -144,15 +146,18 @@ module.exports = {
         const getPropertySyntaxIndex = node =>
           propertySyntaxSortOrder.indexOf(getPropertySyntax(node));
 
-        const getFirstDeclarationName = node => {
+        const getDeclarationName = node => {
           if (isStaticRequire(node)) return null;
           if (!hasObjectPattern(node)) return node.declarations[0].id.name;
-          if (hasObjectPattern(node)) return node.declarations[0].id.properties[0].value.name;
+          if (hasObjectPattern(node)) {
+            const value = node.declarations[0].id.properties[0].value;
+            return isAssignmentPattern(value) ? value.left.name : value.name;
+          }
         };
 
         const reportOnAlphabeticalSort = (node, previousNode) => {
-          let firstName = getFirstDeclarationName(node);
-          let previousName = getFirstDeclarationName(previousNode);
+          let firstName = getDeclarationName(node);
+          let previousName = getDeclarationName(previousNode);
           if (ignoreCase) {
             previousName = previousName && previousName.toLowerCase();
             firstName = firstName && firstName.toLowerCase();

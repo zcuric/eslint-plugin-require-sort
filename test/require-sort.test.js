@@ -83,6 +83,15 @@ ruleTester.run('require-sort', rule, {
         const { b: a } = require('foo.js');
         const { a: b } = require('foo.js');
       `
+    },
+    {
+      code: `
+        const { a: b = {} } = require('foo');
+        const c = require('bar');
+        const d = require('baz');
+        const { e } = require('foobar');
+      `,
+      options: ignoreCaseArgs
     }
   ],
   invalid: [
@@ -90,6 +99,16 @@ ruleTester.run('require-sort', rule, {
       code:
         "const a = require('foo.js');\n" +
         "const A = require('bar.js');",
+      output: null,
+      errors: [expectedError]
+    },
+    {
+      code: `
+        const { a: z = {} } = require('foo');
+        const c = require('bar');
+        const d = require('baz');
+        const { e } = require('foobar');
+      `,
       output: null,
       errors: [expectedError]
     },
