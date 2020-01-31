@@ -49,12 +49,15 @@ also install `eslint-plugin-require-sort` globally.
 
 ## Usage
 
-Add `require-sort` to the plugins section of your `.eslintrc(.js|.json|.yaml)` configuration
+Add `require-sort` to the plugins and rules section of your `.eslintrc(.js|.json|.yaml)` configuration
 file:
 
 ```json
 {
-  "plugins": ["require-sort"]
+  "plugins": ["require-sort"],
+  "rules": {
+    "require-sort/require-sort": "error"
+  }
 }
 ```
 
