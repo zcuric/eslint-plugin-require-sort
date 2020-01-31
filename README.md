@@ -244,7 +244,7 @@ const { a, b } = require('foo');
 Default is `["none", "multiple", "single"]`.
 
 ## Credits
-- This plugin is [heavily inspired by `sort-imports` rule](https://github.com/eslint/eslint/blob/master/lib/rules/sort-imports) and borrows much of the code from it. Credits to authors an maintainers of that rule. 
+- This plugin is [heavily inspired by `sort-imports` rule](https://github.com/eslint/eslint/blob/master/lib/rules/sort-imports.js) and borrows much of the code from it. Credits to authors an maintainers of that rule. 
 - [@vladimyr](https://github.com/vladimyr) who pointed me to AST explorer.
 - [@kronicker](https://github.com/kronicker) who said it that this won't work in some cases :stuck_out_tongue_winking_eye:
 
