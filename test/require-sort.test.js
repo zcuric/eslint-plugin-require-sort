@@ -155,6 +155,22 @@ ruleTester.run('require-sort', rule, {
       }]
     },
     {
+      code: "const {b, d: a, c} = require('foo.js');",
+      output: "const {d: a, b, c} = require('foo.js');",
+      errors: [{
+        message: "Property 'a' of the require declaration should be sorted alphabetically.",
+        type: 'Property'
+      }]
+    },
+    {
+      code: "const {b, d: a = {}, c} = require('foo.js');",
+      output: "const {d: a = {}, b, c} = require('foo.js');",
+      errors: [{
+        message: "Property 'a' of the require declaration should be sorted alphabetically.",
+        type: 'Property'
+      }]
+    },
+    {
       code: `
         const { a: b } = require('foo.js');
         const { b: a } = require('foo.js');

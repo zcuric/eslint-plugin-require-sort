@@ -96,11 +96,13 @@ module.exports = {
           };
 
           if (firstUnsortedIndex === -1) return;
+          const { value } = properties[firstUnsortedIndex];
+          const propertyName = isAssignmentPattern(value) ? value.left.name : value.name;
 
           context.report({
             node: properties[firstUnsortedIndex],
             message: "Property '{{propertyName}}' of the require declaration should be sorted alphabetically.",
-            data: { propertyName: properties[firstUnsortedIndex].value.name },
+            data: { propertyName },
             fix
           });
         };
