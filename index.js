@@ -62,12 +62,11 @@ module.exports = {
             /*
            * When the current declaration uses a different property syntax,
            * then check if the ordering is correct.
-           * Otherwise, make a default string compare (like rule sort-vars to be consistent) of the first used property name.
+           * Otherwise, make a default string compare (like rule sort-vars to be consistent)
+           * of the first used property name.
            */
             if (currentIndex === previousIndex) reportOnAlphabeticalSort(node, previousNode);
-            if (currentIndex < previousIndex) {
-              reportOnExpectedSyntax(node, previousNode, currentIndex, previousIndex);
-            }
+            if (currentIndex < previousIndex) reportOnExpectedSyntax(node, currentIndex, previousIndex);
           }
 
           previousNode = node;
@@ -166,7 +165,7 @@ module.exports = {
           }
         };
 
-        const reportOnExpectedSyntax = (node, previousNode, currentIndex, previousIndex) => {
+        const reportOnExpectedSyntax = (node, currentIndex, previousIndex) => {
           context.report({
             node,
             message: "Expected '{{syntaxA}}' syntax before '{{syntaxB}}' syntax.",
