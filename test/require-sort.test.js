@@ -77,6 +77,12 @@ ruleTester.run('require-sort', rule, {
       options: [{
         propertySyntaxSortOrder: ['none', 'multiple', 'single']
       }]
+    },
+    {
+      code: `
+        const { b: a } = require('foo.js');
+        const { a: b } = require('foo.js');
+      `
     }
   ],
   invalid: [
@@ -128,6 +134,17 @@ ruleTester.run('require-sort', rule, {
         message: "Property 'a' of the require declaration should be sorted alphabetically.",
         type: 'Property'
       }]
+    },
+    {
+      code: `
+        const { a: b } = require('foo.js');
+        const { b: a } = require('foo.js');
+      `,
+      output: `
+        const { a: b } = require('foo.js');
+        const { b: a } = require('foo.js');
+      `,
+      errors: [expectedError]
     },
     {
       code:

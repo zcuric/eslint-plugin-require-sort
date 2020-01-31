@@ -100,7 +100,7 @@ module.exports = {
           context.report({
             node: properties[firstUnsortedIndex],
             message: "Property '{{propertyName}}' of the require declaration should be sorted alphabetically.",
-            data: { propertyName: properties[firstUnsortedIndex].key.name },
+            data: { propertyName: properties[firstUnsortedIndex].value.name },
             fix
           });
         };
@@ -126,8 +126,8 @@ module.exports = {
         });
 
         const getSortableName = ignoreCase
-          ? property => property.key.name.toLowerCase()
-          : property => property.key.name;
+          ? property => property.value.name.toLowerCase()
+          : property => property.value.name;
 
         const sortByName = (propertyA, propertyB) => {
           const aName = getSortableName(propertyA);
@@ -147,7 +147,7 @@ module.exports = {
         const getFirstDeclarationName = node => {
           if (isStaticRequire(node)) return null;
           if (!hasObjectPattern(node)) return node.declarations[0].id.name;
-          if (hasObjectPattern(node)) return node.declarations[0].id.properties[0].key.name;
+          if (hasObjectPattern(node)) return node.declarations[0].id.properties[0].value.name;
         };
 
         const reportOnAlphabeticalSort = (node, previousNode) => {
