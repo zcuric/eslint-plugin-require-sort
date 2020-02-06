@@ -3,7 +3,9 @@
 const rule = require('../index.js').rules['require-sort'];
 const { RuleTester } = require('eslint');
 
-const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 2020, sourceType: 'script' } });
+const ruleTester = new RuleTester({
+  parserOptions: { ecmaVersion: 2020, sourceType: 'script' }
+});
 
 const expectedError = {
   message: 'Requires should be sorted alphabetically.',
@@ -96,9 +98,11 @@ ruleTester.run('require-sort', rule, {
           require('baz');
         }
       `,
-      options: [{
-        propertySyntaxSortOrder: ['none', 'single', 'multiple']
-      }]
+      options: [
+        {
+          propertySyntaxSortOrder: ['none', 'single', 'multiple']
+        }
+      ]
     }),
     test({
       code: `
@@ -106,9 +110,11 @@ ruleTester.run('require-sort', rule, {
         const { b, c } = require('baz');
         require('foo');
       `,
-      options: [{
-        propertySyntaxSortOrder: ['single', 'multiple', 'none']
-      }]
+      options: [
+        {
+          propertySyntaxSortOrder: ['single', 'multiple', 'none']
+        }
+      ]
     }),
     test({
       code: `
@@ -116,9 +122,11 @@ ruleTester.run('require-sort', rule, {
         require('foo');
         const A = require('bar');
       `,
-      options: [{
-        propertySyntaxSortOrder: ['multiple', 'none', 'single']
-      }]
+      options: [
+        {
+          propertySyntaxSortOrder: ['multiple', 'none', 'single']
+        }
+      ]
     }),
     // ignoreDeclarationSort
     test({
@@ -132,9 +140,11 @@ ruleTester.run('require-sort', rule, {
         const z = require('bar');
         const a = require('foo');
       `,
-      options: [{
-        ignoreDeclarationSort: true
-      }]
+      options: [
+        {
+          ignoreDeclarationSort: true
+        }
+      ]
     }),
     // ignorePropertySort
     test({
@@ -146,9 +156,11 @@ ruleTester.run('require-sort', rule, {
       code: `
         const { b, c, a } = require('bar');
       `,
-      options: [{
-        ignorePropertySort: true
-      }]
+      options: [
+        {
+          ignorePropertySort: true
+        }
+      ]
     })
   ]),
   invalid: getTests([
@@ -170,10 +182,7 @@ ruleTester.run('require-sort', rule, {
         const A = require('bar');
       `,
       output: null,
-      errors: [
-        { ...expectedError, type: 'CallExpression' },
-        expectedError
-      ]
+      errors: [{ ...expectedError, type: 'CallExpression' }, expectedError]
     }),
     // propertySyntaxSortOrder
     test({
@@ -183,14 +192,18 @@ ruleTester.run('require-sort', rule, {
         const { Ba } = require('bar');
         const { b, c } = require('baz');
       `,
-      options: [{
-        propertySyntaxSortOrder: ['none', 'multiple', 'single'],
-        ignoreCase: true
-      }],
-      errors: [{
-        message: "Expected 'multiple' syntax before 'single' syntax.",
-        type: 'VariableDeclaration'
-      }]
+      options: [
+        {
+          propertySyntaxSortOrder: ['none', 'multiple', 'single'],
+          ignoreCase: true
+        }
+      ],
+      errors: [
+        {
+          message: "Expected 'multiple' syntax before 'single' syntax.",
+          type: 'VariableDeclaration'
+        }
+      ]
     }),
     test({
       code: `
@@ -198,13 +211,17 @@ ruleTester.run('require-sort', rule, {
         require('foo');
         const { b, c } = require('baz');
       `,
-      options: [{
-        propertySyntaxSortOrder: ['none', 'multiple', 'single']
-      }],
-      errors: [{
-        message: "Expected 'none' syntax before 'single' syntax.",
-        type: 'CallExpression'
-      }]
+      options: [
+        {
+          propertySyntaxSortOrder: ['none', 'multiple', 'single']
+        }
+      ],
+      errors: [
+        {
+          message: "Expected 'none' syntax before 'single' syntax.",
+          type: 'CallExpression'
+        }
+      ]
     }),
     // property order
     test({
@@ -214,10 +231,13 @@ ruleTester.run('require-sort', rule, {
       output: `
         const { a, b, c, d } = require('foo');
       `,
-      errors: [{
-        message: "Property 'a' of the require declaration should be sorted alphabetically.",
-        type: 'Property'
-      }]
+      errors: [
+        {
+          message:
+            "Property 'a' of the require declaration should be sorted alphabetically.",
+          type: 'Property'
+        }
+      ]
     }),
     // property order with assignment
     test({
@@ -227,10 +247,13 @@ ruleTester.run('require-sort', rule, {
       output: `
         const { a = {}, b, c, d } = require('foo');
       `,
-      errors: [{
-        message: "Property 'a' of the require declaration should be sorted alphabetically.",
-        type: 'Property'
-      }]
+      errors: [
+        {
+          message:
+            "Property 'a' of the require declaration should be sorted alphabetically.",
+          type: 'Property'
+        }
+      ]
     }),
     // property order with aliases
     test({
@@ -240,20 +263,26 @@ ruleTester.run('require-sort', rule, {
       output: `
         const { d: e, c: g, b: z } = require('foo');
       `,
-      errors: [{
-        message: "Property 'g' of the require declaration should be sorted alphabetically.",
-        type: 'Property'
-      }]
+      errors: [
+        {
+          message:
+            "Property 'g' of the require declaration should be sorted alphabetically.",
+          type: 'Property'
+        }
+      ]
     }),
     test({
       code: `
         const {zzzzz, /* comment */ aaaaa} = require('foo');
       `,
       output: null, // not fixed due to comment
-      errors: [{
-        message: "Property 'aaaaa' of the require declaration should be sorted alphabetically.",
-        type: 'Property'
-      }]
+      errors: [
+        {
+          message:
+            "Property 'aaaaa' of the require declaration should be sorted alphabetically.",
+          type: 'Property'
+        }
+      ]
     })
   ])
 });
