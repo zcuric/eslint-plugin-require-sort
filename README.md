@@ -16,9 +16,9 @@
   - [License](#license)
 
 ## Introduction
-What is 'require'? From latest [Node documentation](https://nodejs.org/api/modules.html) require is a `function`. As Node follows CommonJS module system, require function is the easiest way to include modules that exist in separate files - more on that [here](https://nodejs.org/en/knowledge/getting-started/what-is-require/). 
+What is `require`? From latest [Node documentation](https://nodejs.org/api/modules.html) require is a `function`. As Node follows CommonJS module system, `require` function is the easiest way to include modules that exist in separate files - more on that [here](https://nodejs.org/en/knowledge/getting-started/what-is-require/). 
 
-Difference between CommonJS and ES2015 modules is very nicely explain [in this short talk](https://www.youtube.com/watch?v=8O_H2JgV7EQ).
+Difference between CommonJS and ES2015 modules is very nicely explained [in this short talk](https://www.youtube.com/watch?v=8O_H2JgV7EQ).
 
 [From AST point of view](https://astexplorer.net/#/gist/577afe7c245364a40a495051b8289508/9dc2d43629dd548417fb26b4c2aa9ae68578b7d1) `const foo = require('bar')` is a `VariableDeclaration` and `require` is `CallExpression`. And in this eslint plugin is treated as such. 
 `foo` is in this case an `Identifier`. 
@@ -26,7 +26,7 @@ In case of destructuring `const { foo, bar } = require('baz')`, `foo` and `bar` 
 
 This is important for nomenclature in the plugin, because it's not straight forward as in [`sort-imports`](https://eslint.org/docs/rules/sort-imports) rule provided by `eslint`.
 
-In this plugin all `Identifiers` are called `properties` to simplify things. The goal is to follow the AST as closely as possible. What `member` is in `sort-imports` rule, `properties` are in this plugin. 
+In this plugin all `Identifiers` are called `properties` to simplify things. The goal is to follow the AST as closely as possible. What `member` is to `sort-imports` rule, `properties` are to this plugin. 
 
 Hopefully this all makes sense.
 
@@ -63,7 +63,7 @@ file:
 
 ## Rule Details
 
-This rule checks all  declarations and verifies that all are first sorted by the used property syntax and then alphabetically by the first property or alias name.
+This rule checks all declarations and verifies that all are first sorted by the used property syntax and then alphabetically by the first property or alias name.
 
 The `--fix` option on the command line automatically fixes some problems reported by this rule: multiple properties on a single line are automatically sorted (e.g. `const { b, a } =  require('foo')` is corrected to `const { a, b } =  require('foo')`), but multiple lines are not reordered.
 
@@ -244,7 +244,7 @@ const { a, b } = require('foo');
 Default is `["none", "multiple", "single"]`.
 
 ## Credits
-- This plugin is [heavily inspired by `sort-imports` rule](https://github.com/eslint/eslint/blob/master/lib/rules/sort-imports.js) and borrows much of the code from it. Credits to authors an maintainers of that rule. 
+- This plugin is [inspired by `sort-imports` rule](https://github.com/eslint/eslint/blob/master/lib/rules/sort-imports.js). Credits to authors an maintainers of that rule. 
 - [@vladimyr](https://github.com/vladimyr) who pointed me to AST explorer.
 - [@kronicker](https://github.com/kronicker) who said it that this won't work in some cases :stuck_out_tongue_winking_eye:
 
