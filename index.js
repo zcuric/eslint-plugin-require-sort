@@ -5,7 +5,6 @@ module.exports = {
     'require-sort': {
       meta: {
         type: 'suggestion',
-
         docs: {
           description: 'enforce sorted require declarations within modules',
           category: 'ECMAScript 6',
@@ -149,12 +148,10 @@ module.exports = {
           propertySyntaxSortOrder.indexOf(getPropertySyntax(node));
 
         const getDeclarationName = node => {
-          if (isStaticRequire(node)) return null;
+          if (isStaticRequire(node)) return node.arguments[0].value;
           if (!hasObjectPattern(node)) return node.declarations[0].id.name;
-          if (hasObjectPattern(node)) {
-            const value = node.declarations[0].id.properties[0].value;
-            return isAssignmentPattern(value) ? value.left.name : value.name;
-          }
+          const value = node.declarations[0].id.properties[0].value;
+          return isAssignmentPattern(value) ? value.left.name : value.name;
         };
 
         const reportOnAlphabeticalSort = (node, previousNode) => {
