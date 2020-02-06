@@ -1,5 +1,11 @@
 # eslint-plugin-require-sort
 
+<p>
+<a href="https://www.npmjs.com/package/eslint-plugin-require-sort"><img src="https://img.shields.io/npm/v/eslint-plugin-require-sort.svg"/></a>
+<a href="https://circleci.com/gh/zcuric/eslint-plugin-require-sort">
+<img src="https://circleci.com/gh/zcuric/eslint-plugin-require-sort/tree/master.svg?style=svg"/></a>
+</p>
+
   - [Introduction](#introduction)
   - [Installation](#installation)
   - [Usage](#usage)
