@@ -151,7 +151,8 @@ module.exports = {
           const name = isAssignmentPattern(value)
             ? value.left.name
             : value.name;
-          return ignoreCase ? name.toLowerCase() : name;
+          if (name) return ignoreCase ? name.toLowerCase() : name;
+          return null;
         };
 
         const sortByName = (propertyA, propertyB) => {
