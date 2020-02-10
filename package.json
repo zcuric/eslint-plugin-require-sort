@@ -3,7 +3,7 @@
     "access": "public"
   },
   "name": "eslint-plugin-require-sort",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "ESlint plugin for sorting requires (CommonJS modules) alphabetically",
   "main": "dist/index.js",
   "scripts": {
