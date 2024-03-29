@@ -88,7 +88,7 @@ This rule accepts an object with its properties as
 * `ignoreCase` (default: `false`)
 * `ignoreDeclarationOrder` (default: `false`)
 * `ignorePropertySort` (default: `false`)
-* `propertySyntaxSortOrder` (default: `["note", "multiple", "single"]`); all items must be present in the array, but you can change the order.
+* `propertySyntaxSortOrder` (default: `["none", "multiple", "single"]`); all items must be present in the array, but you can change the order.
 
 Default option settings are:
 
